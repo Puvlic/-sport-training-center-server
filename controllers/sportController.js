@@ -15,7 +15,7 @@ class SportController {
 
     async getAllSports (req, res) {
         const sports = await db.query(`SELECT * FROM sport`)
-        res.json(sports.rows[0])
+        res.json(sports.rows)
     }
 
     async updateSport (req, res) {
@@ -25,9 +25,14 @@ class SportController {
     }
 
     async deleteSport (req, res) {
-        const id = req.params.id
-        const deletedSport = await db.query(`DELETE FROM sport WHERE id = $1`, [id])
-        res.json(deletedSport.rows[0])
+        try {
+            const {name} = req.body
+            const deletedSport = await db.query(`DELETE FROM sport WHERE sport = $1`, [name])
+            res.json("Удалено")
+        } catch (e) {
+            res.json(e.detail)
+            console.log(e.detail)
+        }
     }
 }
 

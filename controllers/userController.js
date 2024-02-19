@@ -69,10 +69,17 @@ class UserController {
     async getUser (req, res) {
         try {
             const id = req.params.id
-            const users = await db.query(`SELECT * FROM users WHERE id = $1`, [id])
-            res.json(users.rows[0])
+            const user = await db.query(`SELECT * FROM users WHERE id = $1`, [id])
+            res.json(user.rows[0])
         } catch (e) {
         }
+    }
+
+    async getAllUsers (req, res) {
+        try {
+            const users = await db.query(`SELECT * FROM users`)
+            res.json(users.rows)
+        } catch (e) {}
     }
 }
 

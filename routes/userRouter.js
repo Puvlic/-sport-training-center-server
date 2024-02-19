@@ -10,6 +10,7 @@ router.post('/registration',
     check('password', 'Пароль должен иметь больше 4 и меньше 30 символов').isLength({min:4, max:30}),
     userController.registration)
 router.get('/get-user/:id', userController.getUser)
+router.get('/get-all-users', userController.getAllUsers)
 router.post('/login', userController.login)
 
 module.exports = router

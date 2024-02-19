@@ -38,9 +38,9 @@ class TrainingController {
         const id = req.params.id
         const training = await db.query(`SELECT * FROM training WHERE id = $1`, [id])
 
-        const trainer = await db.query(`SELECT name, surname, patronymic FROM users WHERE id = $1`, [training.rows[i].trainer_id])
-        const sport = await db.query(`SELECT sport FROM sport WHERE id = $1`, [training.rows[i].sport_id])
-        const gym = await db.query(`SELECT name FROM gym WHERE id = $1`, [training.rows[i].gym_id])
+        const trainer = await db.query(`SELECT name, surname, patronymic FROM users WHERE id = $1`, [training.rows[0].trainer_id])
+        const sport = await db.query(`SELECT sport FROM sport WHERE id = $1`, [training.rows[0].sport_id])
+        const gym = await db.query(`SELECT name FROM gym WHERE id = $1`, [training.rows[0].gym_id])
 
         let training_info = {
             start_time: training.rows[0].start_time,
@@ -48,9 +48,10 @@ class TrainingController {
             trainer: `${trainer.rows[0].surname} ${trainer.rows[0].name} ${trainer.rows[0].patronymic}`,
             sport: sport.rows[0].sport,
             gym: gym.rows[0].name
+
         }
 
-        res.json(training_info.rows[0])
+        res.json(training_info)
     }
 
     async updateTraining (req, res) {

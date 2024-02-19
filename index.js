@@ -10,6 +10,8 @@ const trainingRouter = require('./routes/trainingRouter')
 const usersOnTrainingRouter = require('./routes/usersOnTrainingRouter')
 const competitionRouter = require('./routes/competitionRouter')
 const userOnCompetitionRouter = require('./routes/userOnCompetitionRouter')
+const organizerRouter = require('./routes/organizerRouter')
+const dayOfWeekRouter = require('./routes/dayOfWeekController')
 const subscriptionsChecking = require('./cron/subscriptionsСhecking')
 const express = require('express')
 const cors = require('cors')
@@ -39,6 +41,8 @@ app.use('/api', trainingRouter)
 app.use('/api', usersOnTrainingRouter)
 app.use('/api', competitionRouter)
 app.use('/api', userOnCompetitionRouter)
+app.use('/api', organizerRouter)
+app.use('/api', dayOfWeekRouter)
 
 const start = () => {
     try {
